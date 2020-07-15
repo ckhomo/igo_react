@@ -1,4 +1,14 @@
-const fetchPosition = (player = 1) =>
-  localStorage.getItem("pos" + player ? "White" : "Black");
+/**
+ * @param {boolean} player
+ */
 
-return dispatch(fetchPosition(player));
+const fetchPosition = function (player = true) {
+  localStorage.getItem("pos" + player ? "Black" : "White");
+};
+
+/**
+ * @param {boolean} player
+ */
+export const loadPosition = function (player) {
+  return dispatch(fetchPosition(player));
+};
