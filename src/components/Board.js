@@ -31,7 +31,7 @@ function Board(props) {
     );
   }
 
-  console.log(boardRow);
+  // console.log(boardRow);
   return (
     <>
       <div className="board-div">{boardRow}</div>
