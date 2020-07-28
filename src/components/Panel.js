@@ -3,13 +3,23 @@ import "./Panel.scss";
 
 import Form from "react-bootstrap/Form";
 
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { onSetBoardSize } from "../actions";
+
 function Panel() {
   return (
     <>
       <Form className="board-panel">
         <Form.Group controlId="board-size">
           <Form.Label>Board Size:</Form.Label>
-          <Form.Control as="select" defaultValue={13}>
+          <Form.Control
+            as="select"
+            defaultValue={13}
+            onChange={(event) => {
+              onSetBoardSize({ size: event.target.value });
+            }}
+          >
             <option value={9}>9</option>
             <option value={13}>13</option>
             <option value={19}>19</option>
@@ -20,4 +30,8 @@ function Panel() {
   );
 }
 
-export default Panel;
+const mapStateToProps = (store) => ({ sortType: store.size });
+
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({ onSetBoardSize }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(Panel);

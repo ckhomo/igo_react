@@ -13,7 +13,7 @@ export function changePlayerTurn(player = Boolean) {
   };
 }
 
-export function setBoardSize(size = 9 | 13 | 19) {
+export function onSetBoardSize(size = 9 | 13 | 19) {
   return (dispatch, getstate) => {
     dispatch({
       type: SET_BOARD_SIZE,

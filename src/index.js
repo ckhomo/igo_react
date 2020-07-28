@@ -7,7 +7,7 @@ import * as serviceWorker from "./serviceWorker";
 //redux:
 import { Provider } from "react-redux";
 import { createStore, combineReducers } from "redux";
-import * as reducers from "./reducers";
+import * as reducers from "./reducers/boardSize";
 
 const reducer = combineReducers({ ...reducers });
 const store = createStore(reducer);

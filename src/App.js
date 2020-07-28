@@ -1,125 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import Board from "./components/Board";
 import Panel from "./components/Panel";
 
-function App() {
-  const board_data = {
-    0: [
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-    ],
-    1: [
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-    ],
-    2: [
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-    ],
-    3: [
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-    ],
-    4: [
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-    ],
-    5: [
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-    ],
-    6: [
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-    ],
-    7: [
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-    ],
-    8: [
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-      { status: 0 },
-    ],
-    details: {
-      whoseTurn: 1,
-      turnNumber: 0,
-      blackEat: 0,
-      whiteEat: 0,
-    },
-  };
+// import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+// import { onSetBoardSize } from "./actions";
 
+function App(props) {
+  // useEffect(() => {
+  //   onSetBoardSize({ size: 9 });
+  // }, []);
   return (
     <>
-      <Board size={9} data={board_data} />
+      <Board />
       <Panel />
     </>
   );
 }
 
-export default App;
+const mapStateToProps = (store) => ({
+  // items: store.items,
+  // isFilteringOut: store.filterOut.isFilteringOut,
+  // searchedKeyword: store.searchedKeyword.keyword,
+  size: store.size,
+});
+
+export default connect(mapStateToProps)(App);
