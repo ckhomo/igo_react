@@ -111,10 +111,13 @@ export default function boardSize(
   state: { size: 9 | 13 | 19 } = { size: 13 },
   action: Object
 ) {
+  console.log(state, action.payload)
   switch (action.type) {
     case SET_BOARD_SIZE: {
-      console.log("test");
+      // console.log(state);
+      // return state;
       return Object.assign({}, { boardSize: action.payload.size });
+      // return { boardSize: action.payload.size };
     }
 
     default:

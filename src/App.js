@@ -7,12 +7,9 @@ import Panel from "./components/Panel";
 
 // import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { onSetBoardSize } from "./actions";
+// import { onSetBoardSize } from "./actions";
 
-function App(props) {
-  useEffect(() => {
-    onSetBoardSize({ size: 9 });
-  }, []);
+function App() {
   return (
     <>
       <Board />

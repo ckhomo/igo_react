@@ -3,7 +3,7 @@ import "./Panel.scss";
 
 import Form from "react-bootstrap/Form";
 
-import { bindActionCreators } from "redux";
+// import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { onSetBoardSize } from "../actions";
 
@@ -31,6 +31,5 @@ function Panel() {
 }
 
 const mapStateToProps = (store) => ({ size: store.size });
-// const mapDispatchToProps = (dispatch) =>
-//   bindActionCreators({ onSetBoardSize }, dispatch);
-export default connect(mapStateToProps /*, mapDispatchToProps*/)(Panel);
+
+export default connect(mapStateToProps, { onSetBoardSize })(Panel);

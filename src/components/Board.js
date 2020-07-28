@@ -5,13 +5,15 @@ import BoardUnit from "./BoardUnit.js";
 
 import Row from "react-bootstrap/Row";
 
-function Board(size) {
-  // console.log(props.data.details)
+import { connect } from "react-redux";
+
+function Board(boardSize) {
+  console.log(boardSize);
   //Draw the board:
   let boardRow = [];
-  for (var coord_y = size - 1; coord_y >= 0; coord_y--) {
+  for (var coord_y = boardSize - 1; coord_y >= 0; coord_y--) {
     let boardCol = [];
-    for (var coord_x = 0; coord_x < size; coord_x++) {
+    for (var coord_x = 0; coord_x < boardSize; coord_x++) {
       boardCol.push(
         <BoardUnit
           key={`col_${coord_x}`}
@@ -25,7 +27,7 @@ function Board(size) {
       <Row
         className={"board-row"}
         key={`row_${coord_y}`}
-        style={{ width: 36 * size }}
+        style={{ width: 36 * boardSize }}
       >
         {boardCol}
       </Row>
@@ -38,4 +40,4 @@ function Board(size) {
   );
 }
 
-export default Board;
+export default connect()(Board);
