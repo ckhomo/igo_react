@@ -17,7 +17,9 @@ function Panel() {
             as="select"
             defaultValue={13}
             onChange={(event) => {
-              onSetBoardSize({ size: parseInt(event.target.value) });
+              onSetBoardSize({
+                payload: { size: parseInt(event.target.value) },
+              });
             }}
           >
             <option value={9}>9</option>
@@ -30,6 +32,6 @@ function Panel() {
   );
 }
 
-const mapStateToProps = (store) => ({ size: store.size });
+const mapStateToProps = (store) => ({ boardSize: store.size });
 
 export default connect(mapStateToProps, { onSetBoardSize })(Panel);

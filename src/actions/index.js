@@ -13,11 +13,12 @@ export const DEL_POSITION = "DEL_POSITION";
 //   };
 // }
 
-export function onSetBoardSize(size: { size: 9 | 13 | 19 }) {
+export function onSetBoardSize(payload: { size: 9 | 13 | 19 }) {
+  console.log(payload);
   return (dispatch, getstate) => {
     dispatch({
       type: SET_BOARD_SIZE,
-      payload: size,
+      payload,
     });
   };
 }

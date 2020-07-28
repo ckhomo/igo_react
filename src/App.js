@@ -9,10 +9,10 @@ import Panel from "./components/Panel";
 import { connect } from "react-redux";
 // import { onSetBoardSize } from "./actions";
 
-function App() {
+function App(props) {
   return (
     <>
-      <Board />
+      <Board boardSize={props.boardSize}/>
       <Panel />
     </>
   );
@@ -20,7 +20,7 @@ function App() {
 
 const mapStateToProps = (store) => ({
   turn: store.turn,
-  boardSize: store.size,
+  boardSize: store.boardSize,
 });
 
 export default connect(mapStateToProps)(App);

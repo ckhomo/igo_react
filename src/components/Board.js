@@ -1,4 +1,4 @@
-import React from "react";
+import React /*, { useEffect } */ from "react";
 import "./Board.scss";
 
 import BoardUnit from "./BoardUnit.js";
@@ -7,13 +7,12 @@ import Row from "react-bootstrap/Row";
 
 import { connect } from "react-redux";
 
-function Board(boardSize) {
-  console.log(boardSize);
+function Board(props) {
   //Draw the board:
   let boardRow = [];
-  for (var coord_y = boardSize - 1; coord_y >= 0; coord_y--) {
+  for (var coord_y = props.boardSize - 1; coord_y >= 0; coord_y--) {
     let boardCol = [];
-    for (var coord_x = 0; coord_x < boardSize; coord_x++) {
+    for (var coord_x = 0; coord_x < props.boardSize; coord_x++) {
       boardCol.push(
         <BoardUnit
           key={`col_${coord_x}`}
@@ -27,7 +26,7 @@ function Board(boardSize) {
       <Row
         className={"board-row"}
         key={`row_${coord_y}`}
-        style={{ width: 36 * boardSize }}
+        style={{ width: 36 * props.boardSize }}
       >
         {boardCol}
       </Row>
