@@ -1,37 +1,35 @@
 import React from "react";
 import "./Board.scss";
 
-// import Container from "react-bootstrap/Container";
-import Col from "react-bootstrap/Col";
+import BoardUnit from "./BoardUnit.js";
+
 import Row from "react-bootstrap/Row";
 
 function Board(props) {
+  console.log(props.data.details)
   //Draw the board:
-  let boardCol = [];
-  for (var i = 0; i < props.size; i++) {
-    boardCol.push(
-      <Col className={"board-col"} key={"board-col" + i} id={"x_" + i} />
-    );
-  }
   let boardRow = [];
-  for (var j = 0; j < props.size; j++) {
+  for (var coord_y = props.size - 1; coord_y >= 0; coord_y--) {
+    let boardCol = [];
+    for (var coord_x = 0; coord_x < props.size; coord_x++) {
+      boardCol.push(
+        <BoardUnit
+          key={`col_${coord_x}`}
+          pos={{ x: coord_x, y: coord_y }}
+          status={props.data[coord_x][coord_y].status}
+        />
+      );
+    }
     boardRow.push(
       <Row
         className={"board-row"}
-        id={"y_" + j}
-        key={"board-row" + j}
+        key={`row_${coord_y}`}
         style={{ width: 36 * props.size }}
-        //onclick: Get coordinate value
-        onClick={(event) => {
-          console.log(event.target.id, event.target.parentElement.id);
-        }}
       >
         {boardCol}
       </Row>
     );
   }
-
-  // console.log(boardRow);
   return (
     <>
       <div className="board-div">{boardRow}</div>
