@@ -107,13 +107,14 @@ const boardInitStatus = {
     whiteEat: 0,
   },
 };
-export default function setBoardSize(
+export default function boardSize(
   state: { size: 9 | 13 | 19 } = { size: 13 },
   action: Object
 ) {
   switch (action.type) {
     case SET_BOARD_SIZE: {
-      return Object.assign({}, { size: action.payload.size });
+      console.log("test");
+      return Object.assign({}, { boardSize: action.payload.size });
     }
 
     default:

@@ -7,12 +7,12 @@ import Panel from "./components/Panel";
 
 // import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-// import { onSetBoardSize } from "./actions";
+import { onSetBoardSize } from "./actions";
 
 function App(props) {
-  // useEffect(() => {
-  //   onSetBoardSize({ size: 9 });
-  // }, []);
+  useEffect(() => {
+    onSetBoardSize({ size: 9 });
+  }, []);
   return (
     <>
       <Board />
@@ -22,10 +22,8 @@ function App(props) {
 }
 
 const mapStateToProps = (store) => ({
-  // items: store.items,
-  // isFilteringOut: store.filterOut.isFilteringOut,
-  // searchedKeyword: store.searchedKeyword.keyword,
-  size: store.size,
+  turn: store.turn,
+  boardSize: store.size,
 });
 
 export default connect(mapStateToProps)(App);

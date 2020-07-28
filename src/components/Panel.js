@@ -17,7 +17,7 @@ function Panel() {
             as="select"
             defaultValue={13}
             onChange={(event) => {
-              onSetBoardSize({ size: event.target.value });
+              onSetBoardSize({ size: parseInt(event.target.value) });
             }}
           >
             <option value={9}>9</option>
@@ -30,8 +30,7 @@ function Panel() {
   );
 }
 
-const mapStateToProps = (store) => ({ sortType: store.size });
-
-const mapDispatchToProps = (dispatch) =>
-  bindActionCreators({ onSetBoardSize }, dispatch);
-export default connect(mapStateToProps, mapDispatchToProps)(Panel);
+const mapStateToProps = (store) => ({ size: store.size });
+// const mapDispatchToProps = (dispatch) =>
+//   bindActionCreators({ onSetBoardSize }, dispatch);
+export default connect(mapStateToProps /*, mapDispatchToProps*/)(Panel);

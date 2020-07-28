@@ -13,7 +13,7 @@ export function changePlayerTurn(player = Boolean) {
   };
 }
 
-export function onSetBoardSize(size = 9 | 13 | 19) {
+export function onSetBoardSize(size: 9 | 13 | 19) {
   return (dispatch, getstate) => {
     dispatch({
       type: SET_BOARD_SIZE,
@@ -21,6 +21,10 @@ export function onSetBoardSize(size = 9 | 13 | 19) {
     });
   };
 }
+// export const onSetBoardSize = (size: 9 | 13 | 19) => ({
+//   type: SET_BOARD_SIZE,
+//   payload: size,
+// });
 
 export function setInitBoard(positions = Object) {
   return (dispatch, getstate) => {
