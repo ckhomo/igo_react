@@ -4,11 +4,11 @@ export const INIT_POSITION = "INIT_POSITION";
 export const ADD_POSITION = "ADD_POSITION";
 export const DEL_POSITION = "DEL_POSITION";
 
-export function changePlayerTurn(payload: 1|-1){
-  return{
+export function changePlayerTurn(payload: 1 | -1) {
+  return {
     type: CHANGE_TURN,
-    payload
-  }
+    payload,
+  };
 }
 
 export function setBoardSize(payload: 9 | 13 | 19) {
@@ -24,14 +24,12 @@ export function initBoardPosition(payload: 9 | 13 | 19) {
     payload,
   };
 }
-// export function addPosition(position = Object) {
-//   return (dispatch, getstate) => {
-//     dispatch({
-//       type: ADD_POSITION,
-//       payload: position,
-//     });
-//   };
-// }
+export function addBoardPosition(payload: Object) {
+  return {
+    type: ADD_POSITION,
+    payload,
+  };
+}
 // export function delPositions(positions = Object) {
 //   return (dispatch, getstate) => {
 //     dispatch({

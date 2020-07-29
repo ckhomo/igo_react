@@ -2,6 +2,7 @@ import React from "react";
 import "./Panel.scss";
 
 import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
@@ -27,6 +28,13 @@ function Panel(props) {
             <option value={19}>19</option>
           </Form.Control>
         </Form.Group>
+        <Button
+          onClick={() => {
+            console.log("Undo");
+          }}
+        >
+          Undo
+        </Button>
       </Form>
     </>
   );

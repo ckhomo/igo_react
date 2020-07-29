@@ -22,8 +22,10 @@ export default function boardPosition(
     case INIT_POSITION:
       return boardInitStatus(action.payload);
 
-    // case ADD_POSITION:
-    //   return state;
+    case ADD_POSITION:
+      let clone_state = { ...state };
+      clone_state[action.payload.x][action.payload.y] = action.payload.status;
+      return clone_state;
     // case DEL_POSITION:
     //   return state;
     default:

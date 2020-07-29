@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import React /*, { useState }*/ from "react";
 import "./BoardUnit.scss";
 
 import Col from "react-bootstrap/Col";
 import blackGO from "../resource/black-circle.png";
 import whiteGO from "../resource/white-circle.png";
 
-import { changePlayerTurn } from "../actions";
+import { changePlayerTurn, addBoardPosition } from "../actions";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 function BoardUnit(props) {
-  const { changePlayerTurn } = props;
+  const { changePlayerTurn, addBoardPosition } = props;
   return (
     <>
       <Col
@@ -26,6 +26,12 @@ function BoardUnit(props) {
         //onClick: send data
         onClick={(event) => {
           if (props.status === 0) {
+            event.target.style.background = "";
+            addBoardPosition({
+              x: props.pos.x,
+              y: props.pos.y,
+              status: props.playerTurn,
+            });
             changePlayerTurn(props.playerTurn === 1 ? -1 : 1);
           }
         }}
@@ -51,6 +57,6 @@ const mapStateToProps = (store) => ({
   playerTurn: store.playerTurn,
 });
 const mapDispatchToProps = (dispatch) =>
-  bindActionCreators({ changePlayerTurn }, dispatch);
+  bindActionCreators({ changePlayerTurn, addBoardPosition }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(BoardUnit);
