@@ -1,28 +1,31 @@
 import { INIT_POSITION, ADD_POSITION, DEL_POSITION } from "../actions";
 import { INIT_SIZE } from "../utils/config";
 
-const boardInitStatus = () => {
+//Creat initial board.
+const boardInitStatus = (size = INIT_SIZE) => {
   let status_col = [];
   let status = {};
-  for (var i = 0; i < INIT_SIZE; i++) {
+  for (var i = 0; i < size; i++) {
     status_col.push(0);
   }
-  for (var j = 0; j < INIT_SIZE; j++) {
+  for (var j = 0; j < size; j++) {
     status[j] = [...status_col];
   }
-  // status[3][3] = 1;
   return status;
 };
 
 export default function boardPosition(
   state: Object = boardInitStatus(),
-  action: Object
+  action
 ) {
-  //   console.log(state, action);
   switch (action.type) {
     case INIT_POSITION:
-      return state;
+      return boardInitStatus(action.payload);
 
+    // case ADD_POSITION:
+    //   return state;
+    // case DEL_POSITION:
+    //   return state;
     default:
       return state;
   }

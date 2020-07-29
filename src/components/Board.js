@@ -17,8 +17,8 @@ function Board(props) {
         <BoardUnit
           key={`col_${coord_x}`}
           pos={{ x: coord_x, y: coord_y }}
-          status={0}
-          // status={props.boardPosition[coord_x][coord_y]}
+          // status={0}
+          status={props.boardPosition[coord_x][coord_y]}
         />
       );
     }
