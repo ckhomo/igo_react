@@ -1,4 +1,4 @@
-import { INIT_POSITION, ADD_POSITION, DEL_POSITION } from "../actions";
+import { INIT_POSITION, ADD_POSITION /*, DEL_POSITION*/ } from "../actions";
 import { INIT_SIZE } from "../utils/config";
 
 //Creat initial board.

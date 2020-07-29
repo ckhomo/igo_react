@@ -26,6 +26,7 @@ function BoardUnit(props) {
         //onClick: send data
         onClick={(event) => {
           if (props.status === 0) {
+            event.target.style.cursor = "";
             event.target.style.background = "";
             addBoardPosition({
               x: props.pos.x,
@@ -40,6 +41,7 @@ function BoardUnit(props) {
           if (props.status === 0) {
             event.target.style.cursor = "pointer";
             event.target.style.background =
+              //TODO: hover-background depend on player turn.
               "radial-gradient(circle, grey 10%, lightgrey 75%)";
           }
         }}
