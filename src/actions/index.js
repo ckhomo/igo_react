@@ -1,6 +1,6 @@
 export const CHANGE_PLAYER_TURN = "CHANGE_PLAYER_TURN";
 export const SET_BOARD_SIZE = "SET_BOARD_SIZE";
-export const SET_INIT_BOARD = "SET_INIT_BOARD";
+export const INIT_POSITION = "INIT_POSITION";
 export const ADD_POSITION = "ADD_POSITION";
 export const DEL_POSITION = "DEL_POSITION";
 
@@ -13,14 +13,15 @@ export const DEL_POSITION = "DEL_POSITION";
 //   };
 // }
 
-export function onSetBoardSize(payload: { size: 9 | 13 | 19 }) {
+export function setBoardSize(payload: 9 | 13 | 19) {
   console.log(payload);
-  return (dispatch, getstate) => {
-    dispatch({
-      type: SET_BOARD_SIZE,
-      payload,
-    });
+  return {
+    type: SET_BOARD_SIZE,
+    payload,
   };
+  // return (dispatch) => {
+  //   dispatch({ type: SET_BOARD_SIZE, payload });
+  // };
 }
 
 // export function setInitBoard(positions: Object) {

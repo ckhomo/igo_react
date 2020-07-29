@@ -8,6 +8,7 @@ import Row from "react-bootstrap/Row";
 import { connect } from "react-redux";
 
 function Board(props) {
+  console.log(props.boardPosition[1][1]);
   //Draw the board:
   let boardRow = [];
   for (var coord_y = props.boardSize - 1; coord_y >= 0; coord_y--) {
@@ -18,7 +19,7 @@ function Board(props) {
           key={`col_${coord_x}`}
           pos={{ x: coord_x, y: coord_y }}
           status={0}
-          // status={props.data[coord_x][coord_y].status}
+          // status={props.boardPosition[coord_x][coord_y]}
         />
       );
     }
@@ -38,5 +39,9 @@ function Board(props) {
     </>
   );
 }
+const mapStateToProps = (store) => ({
+  boardPosition: store.boardPosition,
+  boardSize: store.boardSize,
+});
 
-export default connect()(Board);
+export default connect(mapStateToProps)(Board);

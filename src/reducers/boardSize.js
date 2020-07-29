@@ -1,117 +1,12 @@
-// @flow
 import { SET_BOARD_SIZE } from "../actions";
-const boardInitStatus = {
-  0: [
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-  ],
-  1: [
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-  ],
-  2: [
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-  ],
-  3: [
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-  ],
-  4: [
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-  ],
-  5: [
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-  ],
-  6: [
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-  ],
-  7: [
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-  ],
-  8: [
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-    { status: 0 },
-  ],
-  details: {
-    whoseTurn: 1,
-    turnNumber: 0,
-    blackEat: 0,
-    whiteEat: 0,
-  },
-};
+
 export default function boardSize(state: 9 | 13 | 19 = 13, action: Object) {
+  console.log(action.payload);
   switch (action.type) {
     case SET_BOARD_SIZE: {
-      return Object.assign({}, { boardSize: action.payload.size });
-      // return action.payload.size;
+      return {
+        boardSize: action.payload,
+      };
     }
 
     default:

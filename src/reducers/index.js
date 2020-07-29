@@ -1,5 +1,4 @@
 import boardSize from "./boardSize";
+import boardPosition from "./boardPosition";
 
-export {
-    boardSize,
-}
+export { boardSize, boardPosition };
