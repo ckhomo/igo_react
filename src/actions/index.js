@@ -14,7 +14,6 @@ export const DEL_POSITION = "DEL_POSITION";
 // }
 
 export function setBoardSize(payload: 9 | 13 | 19) {
-  console.log(payload);
   return {
     type: SET_BOARD_SIZE,
     payload,

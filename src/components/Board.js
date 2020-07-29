@@ -8,7 +8,6 @@ import Row from "react-bootstrap/Row";
 import { connect } from "react-redux";
 
 function Board(props) {
-  console.log(props.boardPosition[1][1]);
   //Draw the board:
   let boardRow = [];
   for (var coord_y = props.boardSize - 1; coord_y >= 0; coord_y--) {

@@ -7,7 +7,8 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { setBoardSize } from "../actions";
 
-function Panel() {
+function Panel(props) {
+  const { setBoardSize } = props;
   return (
     <>
       <Form className="board-panel">
@@ -15,11 +16,9 @@ function Panel() {
           <Form.Label>Board Size:</Form.Label>
           <Form.Control
             as="select"
-            defaultValue={13}
+            defaultValue={props.boardSize}
             onChange={(event) => {
-              setBoardSize({
-                boardSize: parseInt(event.target.value),
-              });
+              setBoardSize(parseInt(event.target.value));
             }}
           >
             <option value={9}>9</option>
@@ -32,8 +31,10 @@ function Panel() {
   );
 }
 
-// const mapStateToProps = (store) => ({ boardSize: store.boardSize });
+const mapStateToProps = (store) => ({
+  boardSize: store.boardSize,
+});
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ setBoardSize }, dispatch);
 
-export default connect(null, mapDispatchToProps)(Panel);
+export default connect(mapStateToProps, mapDispatchToProps)(Panel);
