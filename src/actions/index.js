@@ -10,14 +10,12 @@ export function changePlayerTurn(payload: 1 | -1) {
     payload,
   };
 }
-
 export function setBoardSize(payload: 9 | 13 | 19) {
   return {
     type: SET_BOARD_SIZE,
     payload,
   };
 }
-
 export function initBoardPosition(payload: 9 | 13 | 19) {
   return {
     type: INIT_POSITION,
@@ -30,11 +28,9 @@ export function addBoardPosition(payload: Object) {
     payload,
   };
 }
-// export function delPositions(positions = Object) {
-//   return (dispatch, getstate) => {
-//     dispatch({
-//       type: ADD_POSITION,
-//       payload: positions,
-//     });
-//   };
-// }
+export function delBoardPosition(payload: Array) {
+  return {
+    type: DEL_POSITION,
+    payload,
+  };
+}

@@ -1,4 +1,4 @@
-import { INIT_POSITION, ADD_POSITION /*, DEL_POSITION*/ } from "../actions";
+import { INIT_POSITION, ADD_POSITION, DEL_POSITION } from "../actions";
 import { INIT_SIZE } from "../utils/config";
 
 //Creat initial board.
@@ -21,13 +21,16 @@ export default function boardPosition(
   switch (action.type) {
     case INIT_POSITION:
       return boardInitStatus(action.payload);
-
     case ADD_POSITION:
       let clone_state = { ...state };
       clone_state[action.payload.x][action.payload.y] = action.payload.status;
       return clone_state;
-    // case DEL_POSITION:
-    //   return state;
+    case DEL_POSITION:
+      let cleared_state = { ...state };
+      action.payload.forEach((element) => {
+        cleared_state[element.x][element.y] = 0;
+      });
+      return cleared_state;
     default:
       return state;
   }

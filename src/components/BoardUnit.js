@@ -5,13 +5,13 @@ import Col from "react-bootstrap/Col";
 import blackGO from "../resource/black-circle.png";
 import whiteGO from "../resource/white-circle.png";
 
-import { changePlayerTurn, addBoardPosition } from "../actions";
+import { changePlayerTurn, addBoardPosition, delBoardPosition } from "../actions";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { handleEat } from "../utils";
 
 function BoardUnit(props) {
-  const { changePlayerTurn, addBoardPosition } = props;
+  const { changePlayerTurn, addBoardPosition, delBoardPosition } = props;
 
   function clearStyle(event) {
     event.target.style.cursor = "";
@@ -39,9 +39,10 @@ function BoardUnit(props) {
             };
             clearStyle(event);
             addBoardPosition(currentCoord);
-            let delArray = handleEat(props.boardPosition ,currentCoord);
-            console.log(delArray);
-            //delBoardPosition(delArray);
+            let delArray = handleEat(props.boardPosition, currentCoord);
+            if (delArray.length > 0) {
+              delBoardPosition(delArray);
+            }
             changePlayerTurn(props.playerTurn === 1 ? -1 : 1);
           }
         }}
@@ -68,6 +69,6 @@ const mapStateToProps = (store) => ({
   boardPosition: store.boardPosition,
 });
 const mapDispatchToProps = (dispatch) =>
-  bindActionCreators({ changePlayerTurn, addBoardPosition }, dispatch);
+  bindActionCreators({ changePlayerTurn, addBoardPosition, delBoardPosition }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(BoardUnit);

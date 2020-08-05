@@ -17,7 +17,7 @@ export function handleEat(board: Object, position: Object) {
     confirmedDeath.push(deathCheck(element));
   });
   confirmedDeath = removeEmpty(confirmedDeath);
-  return confirmedDeath;
+  return [].concat(...confirmedDeath);
 
   //獲取周圍座標:
   function surroundStatus(status: Array, position: Object) {
@@ -95,7 +95,7 @@ export function handleEat(board: Object, position: Object) {
         input.findIndex((obj) => JSON.stringify(obj) === JSON.stringify(item))
     );
   }
-  function removeEmpty(input: Array){
+  function removeEmpty(input: Array) {
     return input.filter(Boolean);
   }
 }
