@@ -8,9 +8,15 @@ import whiteGO from "../resource/white-circle.png";
 import { changePlayerTurn, addBoardPosition } from "../actions";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import { handleEat } from "../utils";
 
 function BoardUnit(props) {
   const { changePlayerTurn, addBoardPosition } = props;
+
+  function clearStyle(event) {
+    event.target.style.cursor = "";
+    event.target.style.background = "";
+  }
   return (
     <>
       <Col
@@ -26,13 +32,16 @@ function BoardUnit(props) {
         //onClick: send data
         onClick={(event) => {
           if (props.status === 0) {
-            event.target.style.cursor = "";
-            event.target.style.background = "";
-            addBoardPosition({
+            let currentCoord = {
               x: props.pos.x,
               y: props.pos.y,
               status: props.playerTurn,
-            });
+            };
+            clearStyle(event);
+            addBoardPosition(currentCoord);
+            let delArray = handleEat(props.boardPosition ,currentCoord);
+            console.log(delArray);
+            //delBoardPosition(delArray);
             changePlayerTurn(props.playerTurn === 1 ? -1 : 1);
           }
         }}
@@ -40,15 +49,14 @@ function BoardUnit(props) {
         onMouseOver={(event) => {
           if (props.status === 0) {
             event.target.style.cursor = "pointer";
-            event.target.style.background =
-              //TODO: hover-background depend on player turn.
-              "radial-gradient(circle, grey 10%, lightgrey 75%)";
+            event.target.style.background = `radial-gradient(circle, ${
+              props.playerTurn > 0 ? "black" : "white"
+            } 20%, lightgrey 75%)`;
           }
         }}
         onMouseLeave={(event) => {
           if (props.status === 0) {
-            event.target.style.cursor = "";
-            event.target.style.background = "";
+            clearStyle(event);
           }
         }}
       />
@@ -57,6 +65,7 @@ function BoardUnit(props) {
 }
 const mapStateToProps = (store) => ({
   playerTurn: store.playerTurn,
+  boardPosition: store.boardPosition,
 });
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ changePlayerTurn, addBoardPosition }, dispatch);
