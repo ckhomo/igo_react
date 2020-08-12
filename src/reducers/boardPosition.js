@@ -22,15 +22,15 @@ export default function boardPosition(
     case INIT_POSITION:
       return boardInitStatus(action.payload);
     case ADD_POSITION:
-      let clone_state = { ...state };
-      clone_state[action.payload.x][action.payload.y] = action.payload.status;
-      return clone_state;
+      let stateADD = { ...state };
+      stateADD[action.payload.x][action.payload.y] = action.payload.status;
+      return stateADD;
     case DEL_POSITION:
-      let cleared_state = { ...state };
+      let stateDEL = { ...state };
       action.payload.forEach((element) => {
-        cleared_state[element.x][element.y] = 0;
+        stateDEL[element.x][element.y] = 0;
       });
-      return cleared_state;
+      return stateDEL;
     default:
       return state;
   }

@@ -6,10 +6,20 @@ import Button from "react-bootstrap/Button";
 
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { setBoardSize, initBoardPosition } from "../actions";
+import {
+  setBoardSize,
+  initBoardPosition,
+  redoPosition,
+  undoPosition,
+} from "../actions";
 
 function Panel(props) {
-  const { setBoardSize, initBoardPosition } = props;
+  const {
+    setBoardSize,
+    initBoardPosition,
+    redoPosition,
+    undoPosition,
+  } = props;
   return (
     <>
       <Form className="board-panel">
@@ -29,11 +39,18 @@ function Panel(props) {
           </Form.Control>
         </Form.Group>
         <Button
-          onClick={() => {
-            console.log("Undo");
-          }}
+          onClick={undoPosition}
+          disabled={!props.canUndo}
+          className="panel-btn"
         >
           Undo
+        </Button>
+        <Button
+          onClick={redoPosition}
+          disabled={!props.canRedo}
+          className="panel-btn"
+        >
+          Redo
         </Button>
       </Form>
     </>
@@ -42,8 +59,18 @@ function Panel(props) {
 
 const mapStateToProps = (store) => ({
   boardSize: store.boardSize,
+  canUndo: store.boardPosition.past.length > 0,
+  canRedo: store.boardPosition.future.length > 0,
 });
 const mapDispatchToProps = (dispatch) =>
-  bindActionCreators({ setBoardSize, initBoardPosition }, dispatch);
+  bindActionCreators(
+    {
+      setBoardSize,
+      initBoardPosition,
+      redoPosition,
+      undoPosition,
+    },
+    dispatch
+  );
 
 export default connect(mapStateToProps, mapDispatchToProps)(Panel);

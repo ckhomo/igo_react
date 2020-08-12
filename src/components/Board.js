@@ -39,7 +39,7 @@ function Board(props) {
   );
 }
 const mapStateToProps = (store) => ({
-  boardPosition: store.boardPosition,
+  boardPosition: store.boardPosition.present,
   boardSize: store.boardSize,
 });
 

@@ -42,7 +42,7 @@ function BoardUnit(props) {
             let delArray = handleEat(props.boardPosition, currentCoord);
             if (delArray.length > 0) {
               delBoardPosition(delArray);
-            }
+            } 
             changePlayerTurn(props.playerTurn === 1 ? -1 : 1);
           }
         }}
@@ -66,7 +66,7 @@ function BoardUnit(props) {
 }
 const mapStateToProps = (store) => ({
   playerTurn: store.playerTurn,
-  boardPosition: store.boardPosition,
+  boardPosition: store.boardPosition.present,
 });
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ changePlayerTurn, addBoardPosition, delBoardPosition }, dispatch);

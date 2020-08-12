@@ -4,6 +4,10 @@ export const INIT_POSITION = "INIT_POSITION";
 export const ADD_POSITION = "ADD_POSITION";
 export const DEL_POSITION = "DEL_POSITION";
 
+//redux-undo:
+export const UNDO_POSITION = "UNDO_POSITION";
+export const REDO_POSITION = "REDO_POSITION";
+
 export function changePlayerTurn(payload: 1 | -1) {
   return {
     type: CHANGE_TURN,
@@ -32,5 +36,17 @@ export function delBoardPosition(payload: Array) {
   return {
     type: DEL_POSITION,
     payload,
+  };
+}
+
+//redux-undo:
+export function undoPosition() {
+  return {
+    type: UNDO_POSITION,
+  };
+}
+export function redoPosition() {
+  return {
+    type: REDO_POSITION,
   };
 }
