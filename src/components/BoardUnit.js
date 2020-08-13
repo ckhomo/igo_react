@@ -7,13 +7,13 @@ import whiteGO from "../resource/white-circle.png";
 
 import {
   changePlayerTurn,
-  addBoardPosition /*, delBoardPosition*/,
+  modifyBoardPosition /*, delBoardPosition*/,
 } from "../actions";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 function BoardUnit(props) {
-  const { changePlayerTurn, addBoardPosition /*, delBoardPosition*/ } = props;
+  const { changePlayerTurn, modifyBoardPosition /*, delBoardPosition*/ } = props;
   function clearStyle(event) {
     event.target.style.cursor = "";
     event.target.style.background = "";
@@ -39,7 +39,7 @@ function BoardUnit(props) {
               status: props.playerTurn,
             };
             clearStyle(event);
-            addBoardPosition(currentCoord);
+            modifyBoardPosition(currentCoord);
             changePlayerTurn(props.playerTurn === 1 ? -1 : 1);
           }
         }}
@@ -67,7 +67,7 @@ const mapStateToProps = (store) => ({
 });
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
-    { changePlayerTurn, addBoardPosition /*, delBoardPosition*/ },
+    { changePlayerTurn, modifyBoardPosition /*, delBoardPosition*/ },
     dispatch
   );
 

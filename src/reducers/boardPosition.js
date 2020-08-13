@@ -1,4 +1,4 @@
-import { INIT_POSITION, ADD_POSITION /*, DEL_POSITION*/ } from "../actions";
+import { INIT_POSITION, MODIFY_POSITION /*, DEL_POSITION*/ } from "../actions";
 import { INIT_SIZE } from "../utils/config";
 import { handleEat } from "../utils";
 
@@ -22,7 +22,8 @@ export default function boardPosition(
   switch (action.type) {
     case INIT_POSITION:
       return boardInitStatus(action.payload);
-    case ADD_POSITION:
+    //for GO:
+    case MODIFY_POSITION:
       let stateADD = JSON.parse(state);
       stateADD[action.payload.x][action.payload.y] = action.payload.status;
       //merge DEL_POSITION:
@@ -33,6 +34,7 @@ export default function boardPosition(
         });
       }
       return JSON.stringify(stateADD);
+    //for connect5/6:(?)
     //do DEL_POSITION only(deprecated):
     // case DEL_POSITION:
     //   let stateDEL = JSON.parse(state);
