@@ -14,12 +14,7 @@ import {
 } from "../actions";
 
 function Panel(props) {
-  const {
-    setBoardSize,
-    initBoardPosition,
-    redoPosition,
-    undoPosition,
-  } = props;
+  const { setBoardSize, initBoardPosition, redoPosition, undoPosition } = props;
   return (
     <>
       <Form className="board-panel">
@@ -52,6 +47,8 @@ function Panel(props) {
         >
           Redo
         </Button>
+        {/* <br />
+        <span>It's {props.playerTurn > 0 ? "Black" : "White"}'s turn.</span> */}
       </Form>
     </>
   );
@@ -59,6 +56,7 @@ function Panel(props) {
 
 const mapStateToProps = (store) => ({
   boardSize: store.boardSize,
+  // playerTurn: store.playerTurn,
   canUndo: store.boardPosition.past.length > 0,
   canRedo: store.boardPosition.future.length > 0,
 });

@@ -2,7 +2,7 @@ export const CHANGE_TURN = "CHANGE_TURN";
 export const SET_BOARD_SIZE = "SET_BOARD_SIZE";
 export const INIT_POSITION = "INIT_POSITION";
 export const ADD_POSITION = "ADD_POSITION";
-export const DEL_POSITION = "DEL_POSITION";
+// export const DEL_POSITION = "DEL_POSITION";
 
 //redux-undo:
 export const UNDO_POSITION = "UNDO_POSITION";
@@ -32,12 +32,12 @@ export function addBoardPosition(payload: Object) {
     payload,
   };
 }
-export function delBoardPosition(payload: Array) {
-  return {
-    type: DEL_POSITION,
-    payload,
-  };
-}
+// export function delBoardPosition(payload: Array) {
+//   return {
+//     type: DEL_POSITION,
+//     payload,
+//   };
+// }
 
 //redux-undo:
 export function undoPosition() {

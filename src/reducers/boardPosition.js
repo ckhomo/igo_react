@@ -1,5 +1,6 @@
-import { INIT_POSITION, ADD_POSITION, DEL_POSITION } from "../actions";
+import { INIT_POSITION, ADD_POSITION /*, DEL_POSITION*/ } from "../actions";
 import { INIT_SIZE } from "../utils/config";
+import { handleEat } from "../utils";
 
 //Creat initial board.
 const boardInitStatus = (size = INIT_SIZE) => {
@@ -11,26 +12,34 @@ const boardInitStatus = (size = INIT_SIZE) => {
   for (var j = 0; j < size; j++) {
     status[j] = [...status_col];
   }
-  return status;
+  return JSON.stringify(status);
 };
 
 export default function boardPosition(
-  state: Object = boardInitStatus(),
+  state: String = boardInitStatus(),
   action
 ) {
   switch (action.type) {
     case INIT_POSITION:
       return boardInitStatus(action.payload);
     case ADD_POSITION:
-      let stateADD = { ...state };
+      let stateADD = JSON.parse(state);
       stateADD[action.payload.x][action.payload.y] = action.payload.status;
-      return stateADD;
-    case DEL_POSITION:
-      let stateDEL = { ...state };
-      action.payload.forEach((element) => {
-        stateDEL[element.x][element.y] = 0;
-      });
-      return stateDEL;
+      //merge DEL_POSITION:
+      let delArray = handleEat(stateADD, action.payload);
+      if (delArray.length > 0) {
+        delArray.forEach((element) => {
+          stateADD[element.x][element.y] = 0;
+        });
+      }
+      return JSON.stringify(stateADD);
+    //do DEL_POSITION only(deprecated):
+    // case DEL_POSITION:
+    //   let stateDEL = JSON.parse(state);
+    //   action.payload.forEach((element) => {
+    //     stateDEL[element.x][element.y] = 0;
+    //   });
+    //   return JSON.stringify(stateDEL);
     default:
       return state;
   }

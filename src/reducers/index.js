@@ -11,8 +11,7 @@ const rootReducer = combineReducers({
   boardSize: boardSize,
   playerTurn: playerTurn,
   boardPosition: undoable(boardPosition, {
-    // filter: includeAction([ADD_POSITION]),
-    debug: true,
+    // debug: true,
     undoType: UNDO_POSITION,
     redoType: REDO_POSITION,
   }),
