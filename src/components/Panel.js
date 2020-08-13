@@ -12,6 +12,7 @@ import {
   redoPosition,
   undoPosition,
   changePlayerTurn,
+  clearPositionHistory,
 } from "../actions";
 
 function Panel(props) {
@@ -21,6 +22,7 @@ function Panel(props) {
     redoPosition,
     undoPosition,
     changePlayerTurn,
+    clearPositionHistory,
   } = props;
   return (
     <>
@@ -31,8 +33,11 @@ function Panel(props) {
             as="select"
             defaultValue={props.boardSize}
             onChange={(event) => {
+              //設定棋盤尺寸&重置:
               initBoardPosition(parseInt(event.target.value));
               setBoardSize(parseInt(event.target.value));
+              clearPositionHistory();
+              changePlayerTurn(1);
             }}
           >
             <option value={9}>9</option>
@@ -81,6 +86,7 @@ const mapDispatchToProps = (dispatch) =>
       redoPosition,
       undoPosition,
       changePlayerTurn,
+      clearPositionHistory,
     },
     dispatch
   );

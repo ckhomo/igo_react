@@ -7,6 +7,7 @@ export const MODIFY_POSITION = "MODIFY_POSITION";
 //redux-undo:
 export const UNDO_POSITION = "UNDO_POSITION";
 export const REDO_POSITION = "REDO_POSITION";
+export const CLEAR_POSITION_HISTORY = "CLEAR_POSITION_HISTORY";
 
 export function changePlayerTurn(payload: 1 | -1) {
   return {
@@ -48,5 +49,10 @@ export function undoPosition() {
 export function redoPosition() {
   return {
     type: REDO_POSITION,
+  };
+}
+export function clearPositionHistory() {
+  return {
+    type: CLEAR_POSITION_HISTORY,
   };
 }

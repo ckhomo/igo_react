@@ -4,16 +4,23 @@ import boardPosition from "./boardPosition";
 import playerTurn from "./playerTurn";
 
 //redux-undo:
-import undoable from "redux-undo";
-import { UNDO_POSITION, REDO_POSITION } from "../actions";
+import undoable, { includeAction } from "redux-undo";
+import {
+  UNDO_POSITION,
+  REDO_POSITION,
+  CLEAR_POSITION_HISTORY,
+  MODIFY_POSITION,
+} from "../actions";
 
 const rootReducer = combineReducers({
   boardSize: boardSize,
   playerTurn: playerTurn,
   boardPosition: undoable(boardPosition, {
     // debug: true,
+    filter: includeAction(MODIFY_POSITION),
     undoType: UNDO_POSITION,
     redoType: REDO_POSITION,
+    clearHistoryType: CLEAR_POSITION_HISTORY,
   }),
 });
 
