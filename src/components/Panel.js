@@ -11,10 +11,17 @@ import {
   initBoardPosition,
   redoPosition,
   undoPosition,
+  changePlayerTurn,
 } from "../actions";
 
 function Panel(props) {
-  const { setBoardSize, initBoardPosition, redoPosition, undoPosition } = props;
+  const {
+    setBoardSize,
+    initBoardPosition,
+    redoPosition,
+    undoPosition,
+    changePlayerTurn,
+  } = props;
   return (
     <>
       <Form className="board-panel">
@@ -34,14 +41,20 @@ function Panel(props) {
           </Form.Control>
         </Form.Group>
         <Button
-          onClick={undoPosition}
+          onClick={() => {
+            undoPosition();
+            changePlayerTurn(props.playerTurn === 1 ? -1 : 1);
+          }}
           disabled={!props.canUndo}
           className="panel-btn"
         >
           Undo
         </Button>
         <Button
-          onClick={redoPosition}
+          onClick={() => {
+            redoPosition();
+            changePlayerTurn(props.playerTurn === 1 ? -1 : 1);
+          }}
           disabled={!props.canRedo}
           className="panel-btn"
         >
@@ -56,7 +69,7 @@ function Panel(props) {
 
 const mapStateToProps = (store) => ({
   boardSize: store.boardSize,
-  // playerTurn: store.playerTurn,
+  playerTurn: store.playerTurn,
   canUndo: store.boardPosition.past.length > 0,
   canRedo: store.boardPosition.future.length > 0,
 });
@@ -67,6 +80,7 @@ const mapDispatchToProps = (dispatch) =>
       initBoardPosition,
       redoPosition,
       undoPosition,
+      changePlayerTurn,
     },
     dispatch
   );
