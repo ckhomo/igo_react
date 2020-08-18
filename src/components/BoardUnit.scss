@@ -2,7 +2,7 @@
   padding: 0;
   background-size: contain;
 }
-.board-col:before {
+.board-col::before {
   content: "";
   position: absolute;
   width: 100%;
@@ -16,10 +16,15 @@
 //   background: radial-gradient(circle, grey 10%, lightgrey 75%);
 // }
 
-//黑點樣式:
-.dotted-unit {
-  background-image: url("../resource/black-circle.png");
-  background-repeat: no-repeat;
-  background-size: 9px;
-  background-position: 14px;
+//棋盤黑點樣式:
+.dotted-unit::before {
+  content: "\25CF";
+  position: absolute;
+  color: black;
+  z-index: -1;
+
+  //黑點位置寫死
+  font-size: 19px;
+  right: 12px;
+  top: 2px;
 }

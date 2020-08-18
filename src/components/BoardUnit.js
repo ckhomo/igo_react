@@ -24,7 +24,7 @@ function BoardUnit(props) {
   return (
     <>
       <Col
-        className={`board-col ${props.dotted ? "dotted-unit" : null}`}
+        className={`board-col`}
         id={`x_${props.pos.x},y_${props.pos.y}`}
         style={
           props.status === 1
@@ -60,13 +60,14 @@ function BoardUnit(props) {
             clearStyle(event);
           }
         }}
-      />
+      >
+        {props.dotted ? <div className="dotted-unit" /> : null}
+      </Col>
     </>
   );
 }
 const mapStateToProps = (store) => ({
   playerTurn: store.playerTurn,
-  boardSize: store.boardSize,
   boardPosition: JSON.parse(store.boardPosition.present),
 });
 const mapDispatchToProps = (dispatch) =>
