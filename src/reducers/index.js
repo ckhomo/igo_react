@@ -9,7 +9,7 @@ import {
   UNDO_POSITION,
   REDO_POSITION,
   CLEAR_POSITION_HISTORY,
-  MODIFY_POSITION,
+  ADD_POSITION,
 } from "../actions";
 
 const rootReducer = combineReducers({
@@ -17,7 +17,8 @@ const rootReducer = combineReducers({
   playerTurn: playerTurn,
   boardPosition: undoable(boardPosition, {
     // debug: true,
-    filter: includeAction(MODIFY_POSITION),
+    filter: includeAction(ADD_POSITION),
+    // groupBy: groupByActionTypes([ADD_POSITION, DEL_POSITION]),
     undoType: UNDO_POSITION,
     redoType: REDO_POSITION,
     clearHistoryType: CLEAR_POSITION_HISTORY,

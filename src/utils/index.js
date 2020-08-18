@@ -99,3 +99,82 @@ export function handleEat(board: Object, position: Object) {
     return input.filter(Boolean);
   }
 }
+
+export function handleForbid(board: Object, position: Object) {
+  //獲取落子處棋串:
+  let groupList = generateGroup([position]);
+  //確認棋串死亡與否:
+  let forbidResult = deathCheck(groupList);
+  return forbidResult;
+
+  function generateGroup(list) {
+    const LIST_LENGTH = list.length;
+    list.forEach((element) => {
+      try {
+        if (board[element.x + 1][element.y] === element.status) {
+          list.push({ x: element.x + 1, y: element.y, status: element.status });
+        }
+      } catch (error) {}
+
+      try {
+        if (board[element.x - 1][element.y] === element.status) {
+          list.push({ x: element.x - 1, y: element.y, status: element.status });
+        }
+      } catch (error) {}
+
+      try {
+        if (board[element.x][element.y + 1] === element.status) {
+          list.push({ x: element.x, y: element.y + 1, status: element.status });
+        }
+      } catch (error) {}
+      try {
+        if (board[element.x][element.y - 1] === element.status) {
+          list.push({ x: element.x, y: element.y - 1, status: element.status });
+        }
+      } catch (error) {}
+    });
+    list = removeEmpty(list);
+    list = removeDuplicated(list);
+    if (LIST_LENGTH !== list.length) {
+      return generateGroup(list);
+    } else {
+      return list;
+    }
+  }
+  function deathCheck(groupList: Array) {
+    for (let index = 0; index < groupList.length; index++) {
+      try {
+        if (board[groupList[index].x + 1][groupList[index].y] === 0) {
+          return false;
+        }
+      } catch (error) {}
+      try {
+        if (board[groupList[index].x - 1][groupList[index].y] === 0) {
+          return false;
+        }
+      } catch (error) {}
+      try {
+        if (board[groupList[index].x][groupList[index].y + 1] === 0) {
+          return false;
+        }
+      } catch (error) {}
+      try {
+        if (board[groupList[index].x][groupList[index].y - 1] === 0) {
+          return false;
+        }
+      } catch (error) {}
+    }
+    return true;
+  }
+  //移除重複&空白元素:
+  function removeDuplicated(input: Array) {
+    return input.filter(
+      (item, index) =>
+        index ===
+        input.findIndex((obj) => JSON.stringify(obj) === JSON.stringify(item))
+    );
+  }
+  function removeEmpty(input: Array) {
+    return input.filter(Boolean);
+  }
+}
