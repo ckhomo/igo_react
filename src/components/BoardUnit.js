@@ -13,7 +13,10 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 function BoardUnit(props) {
-  const { changePlayerTurn, modifyBoardPosition /*, delBoardPosition*/ } = props;
+  const {
+    changePlayerTurn,
+    modifyBoardPosition /*, delBoardPosition*/,
+  } = props;
   function clearStyle(event) {
     event.target.style.cursor = "";
     event.target.style.background = "";
@@ -21,7 +24,7 @@ function BoardUnit(props) {
   return (
     <>
       <Col
-        className={"board-col"}
+        className={`board-col ${props.dotted ? "dotted-unit" : null}`}
         id={`x_${props.pos.x},y_${props.pos.y}`}
         style={
           props.status === 1
@@ -63,6 +66,7 @@ function BoardUnit(props) {
 }
 const mapStateToProps = (store) => ({
   playerTurn: store.playerTurn,
+  boardSize: store.boardSize,
   boardPosition: JSON.parse(store.boardPosition.present),
 });
 const mapDispatchToProps = (dispatch) =>
