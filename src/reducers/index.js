@@ -2,6 +2,7 @@ import { combineReducers } from "redux";
 import boardSize from "./boardSize";
 import boardPosition from "./boardPosition";
 import playerTurn from "./playerTurn";
+import fileName from "./fileName";
 
 //redux-undo:
 import undoable, { includeAction } from "redux-undo";
@@ -15,6 +16,7 @@ import {
 } from "../actions";
 
 const middleReducer = combineReducers({
+  fileName: fileName,
   boardSize: boardSize,
   playerTurn: playerTurn,
   boardPosition: undoable(boardPosition, {

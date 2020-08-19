@@ -17,6 +17,7 @@ import {
   changePlayerTurn,
   clearPositionHistory,
   loadHistoryFile,
+  setFileName,
 } from "../actions";
 
 function Panel(props) {
@@ -29,8 +30,8 @@ function Panel(props) {
     changePlayerTurn,
     clearPositionHistory,
     loadHistoryFile,
+    setFileName,
   } = props;
-  const [FileName, setFileName] = useState("default");
   const [FileLabel, setFileLabel] = useState("Select file:");
   const [jumpOptions, setJumpOptions] = useState([]);
   useEffect(() => {
@@ -44,27 +45,37 @@ function Panel(props) {
     <>
       <Form className="board-panel">
         <Form.Group controlId="board-size">
-          <Form.Label>Board Size:</Form.Label>
-          <Form.Control
-            as="select"
-            defaultValue={props.boardSize}
-            onChange={(event) => {
-              //設定棋盤尺寸&重置:
-              initBoardPosition(parseInt(event.target.value));
-              setBoardSize(parseInt(event.target.value));
-              clearPositionHistory();
-              changePlayerTurn(1);
-            }}
-          >
-            <option value={9}>9</option>
-            <option value={13}>13</option>
-            <option value={19}>19</option>
-          </Form.Control>
+          <Row>
+            <Col xs={8}>
+              <Form.Control
+                as="select"
+                defaultValue={`Board Size:`}
+                onChange={(event) => {
+                  //設定棋盤尺寸&重置:
+                  initBoardPosition(parseInt(event.target.value));
+                  setBoardSize(parseInt(event.target.value));
+                  clearPositionHistory();
+                  changePlayerTurn(1);
+                }}
+              >
+                <option disabled>Board Size:</option>
+                <option value={9}>9</option>
+                <option value={13}>13</option>
+                <option value={19}>19</option>
+              </Form.Control>
+            </Col>
+            <Col xs={4}>
+              <Button variant="success" className="panel-btn">
+                Reset
+              </Button>
+            </Col>
+          </Row>
         </Form.Group>
         <Form.Group controlId="undo-redo">
           <Row>
             <Col xs={3}>
               <Button
+                className="panel-btn"
                 onClick={() => {
                   undoPosition();
                   changePlayerTurn(props.playerTurn === 1 ? -1 : 1);
@@ -77,6 +88,7 @@ function Panel(props) {
             </Col>
             <Col xs={3}>
               <Button
+                className="panel-btn"
                 onClick={() => {
                   redoPosition();
                   changePlayerTurn(props.playerTurn === 1 ? -1 : 1);
@@ -118,10 +130,11 @@ function Panel(props) {
             </Col>
             <Col xs={4}>
               <Button
+                className="panel-btn"
                 href={`data:text/json;charset=utf-8,${encodeURIComponent(
                   JSON.stringify(props.duelLog)
                 )}`}
-                download={`${FileName}.json`}
+                download={`${props.fileName}.json`}
               >
                 Save
               </Button>
@@ -136,13 +149,22 @@ function Panel(props) {
                 label={FileLabel}
                 id="fileloader"
                 onChange={(e) => {
-                  //TODO: validate file
                   if (e.target.files.length) {
-                    setFileLabel(`${e.target.files[0].name}`);
+                    //檔名顯示:
+                    let labelString = e.target.files[0].name
+                      .toString()
+                      .slice(0, -4);
+                    labelString =
+                      labelString.length > 10
+                        ? labelString.slice(0, 10) + "..."
+                        : labelString;
+                    setFileLabel(`${labelString}`);
+
+                    //TODO: validate file
                     const reader = new FileReader();
                     reader.readAsText(e.target.files[0]);
                     reader.addEventListener("load", () => {
-                      clearPositionHistory(JSON.parse(reader.result));
+                      // clearPositionHistory(JSON.parse(reader.result));
                       loadHistoryFile(JSON.parse(reader.result));
                     });
                   }
@@ -158,6 +180,7 @@ function Panel(props) {
 
 const mapStateToProps = (store) => ({
   duelLog: store,
+  fileName: store.fileName,
   boardSize: store.boardSize,
   playerTurn: store.playerTurn,
   //判斷轉跳位置:
@@ -178,6 +201,7 @@ const mapDispatchToProps = (dispatch) =>
       changePlayerTurn,
       clearPositionHistory,
       loadHistoryFile,
+      setFileName,
     },
     dispatch
   );

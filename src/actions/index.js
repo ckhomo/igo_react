@@ -4,6 +4,7 @@ export const INIT_POSITION = "INIT_POSITION";
 export const ADD_POSITION = "ADD_POSITION";
 export const DEL_POSITION = "DEL_POSITION";
 export const LOAD_HISTORY_FILE = "LOAD_HISTORY_FILE";
+export const SET_FILE_NAME = "SET_FILE_NAME";
 //VSCode Emoji: WIN + .
 //redux-undo:
 export const UNDO_POSITION = "UNDO_POSITION";
@@ -45,6 +46,12 @@ export function delBoardPosition(payload: Array) {
 export function loadHistoryFile(payload: Object) {
   return {
     type: LOAD_HISTORY_FILE,
+    payload,
+  };
+}
+export function setFileName(payload: String) {
+  return {
+    type: SET_FILE_NAME,
     payload,
   };
 }
