@@ -5,8 +5,6 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-// import Dropdown from "react-bootstrap/Dropdown";
-// import DropdownButton from "react-bootstrap/DropdownButton";
 
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
@@ -33,7 +31,7 @@ function Panel(props) {
     loadHistoryFile,
   } = props;
   const [FileName, setFileName] = useState("default");
-  const [LoadContent, setLoadContent] = useState("");
+  const [FileLabel, setFileLabel] = useState("Select file:");
   const [jumpOptions, setJumpOptions] = useState([]);
   useEffect(() => {
     let optArray = [];
@@ -112,7 +110,7 @@ function Panel(props) {
             <Col xs={8}>
               <Form.Control
                 type="text"
-                placeholder="Enter filename here:"
+                placeholder="Enter filename:"
                 onChange={(e) => {
                   setFileName(e.target.value);
                 }}
@@ -132,23 +130,24 @@ function Panel(props) {
         </Form.Group>
         <Form.Group controlId="load-file">
           <Row>
-            <Col xs={8}>
+            <Col xs={12}>
               <Form.File
+                custom
+                label={FileLabel}
                 id="fileloader"
                 onChange={(e) => {
                   //TODO: validate file
-                  const reader = new FileReader();
-                  reader.readAsText(e.target.files[0]);
-                  reader.addEventListener("load", () => {
-                    setLoadContent(true);
-                    clearPositionHistory(JSON.parse(reader.result));
-                    loadHistoryFile(JSON.parse(reader.result));
-                  });
+                  if (e.target.files.length) {
+                    setFileLabel(`${e.target.files[0].name}`);
+                    const reader = new FileReader();
+                    reader.readAsText(e.target.files[0]);
+                    reader.addEventListener("load", () => {
+                      clearPositionHistory(JSON.parse(reader.result));
+                      loadHistoryFile(JSON.parse(reader.result));
+                    });
+                  }
                 }}
               />
-            </Col>
-            <Col xs={4}>
-              <Button disabled={!LoadContent}>Load</Button>
             </Col>
           </Row>
         </Form.Group>
