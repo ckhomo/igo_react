@@ -3,10 +3,12 @@ export const SET_BOARD_SIZE = "SET_BOARD_SIZE";
 export const INIT_POSITION = "INIT_POSITION";
 export const ADD_POSITION = "ADD_POSITION";
 export const DEL_POSITION = "DEL_POSITION";
+export const LOAD_HISTORY_FILE = "LOAD_HISTORY_FILE";
 
 //redux-undo:
 export const UNDO_POSITION = "UNDO_POSITION";
 export const REDO_POSITION = "REDO_POSITION";
+export const JUMP_TO_POSITION = "JUMP_TO_POSITION";
 export const CLEAR_POSITION_HISTORY = "CLEAR_POSITION_HISTORY";
 
 export function changePlayerTurn(payload: 1 | -1) {
@@ -39,6 +41,13 @@ export function delBoardPosition(payload: Array) {
     payload,
   };
 }
+//讀入檔案: 覆寫整個store
+export function loadHistoryFile(payload: Object) {
+  return {
+    type: LOAD_HISTORY_FILE,
+    payload,
+  };
+}
 
 //redux-undo:
 export function undoPosition() {
@@ -54,5 +63,12 @@ export function redoPosition() {
 export function clearPositionHistory() {
   return {
     type: CLEAR_POSITION_HISTORY,
+  };
+}
+//跳至特定手數:
+export function jumpPosition(payload: Number) {
+  return {
+    type: JUMP_TO_POSITION,
+    payload,
   };
 }

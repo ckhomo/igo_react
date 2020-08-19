@@ -22,7 +22,6 @@ export default function boardPosition(
   switch (action.type) {
     case INIT_POSITION:
       return boardInitStatus(action.payload);
-    //for GO:
     case ADD_POSITION:
       let stateADD = JSON.parse(state);
       stateADD[action.payload.x][action.payload.y] = action.payload.status;
