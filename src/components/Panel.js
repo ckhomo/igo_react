@@ -65,7 +65,7 @@ function Panel(props) {
         </Form.Group>
         <Form.Group controlId="undo-redo">
           <Row>
-            <Col sm={3}>
+            <Col xs={3}>
               <Button
                 onClick={() => {
                   undoPosition();
@@ -77,7 +77,7 @@ function Panel(props) {
                 Undo
               </Button>
             </Col>
-            <Col sm={3}>
+            <Col xs={3}>
               <Button
                 onClick={() => {
                   redoPosition();
@@ -89,14 +89,16 @@ function Panel(props) {
                 Redo
               </Button>
             </Col>
-            <Col sm={6}>
+            <Col xs={6}>
               <Form.Control
                 as="select"
                 defaultValue="Jump to:"
                 onChange={(e) => {
-                  //TODO: JUMP_TO
-                  console.log(e.target.value - props.CurrentIndex);
-                  jumpPosition(parseInt(e.target.value - props.CurrentIndex));
+                  let jumpWidth = parseInt(e.target.value - props.CurrentIndex);
+                  if (jumpWidth % 2) {
+                    changePlayerTurn(props.playerTurn === 1 ? -1 : 1);
+                  }
+                  jumpPosition(jumpWidth);
                 }}
               >
                 <option disabled>Jump to:</option>
@@ -107,7 +109,7 @@ function Panel(props) {
         </Form.Group>
         <Form.Group controlId="write-file">
           <Row>
-            <Col sm={8}>
+            <Col xs={8}>
               <Form.Control
                 type="text"
                 placeholder="Enter filename here:"
@@ -116,8 +118,7 @@ function Panel(props) {
                 }}
               />
             </Col>
-            <Col sm={4}>
-              {" "}
+            <Col xs={4}>
               <Button
                 href={`data:text/json;charset=utf-8,${encodeURIComponent(
                   JSON.stringify(props.duelLog)
@@ -131,7 +132,7 @@ function Panel(props) {
         </Form.Group>
         <Form.Group controlId="load-file">
           <Row>
-            <Col sm={8}>
+            <Col xs={8}>
               <Form.File
                 id="fileloader"
                 onChange={(e) => {
@@ -146,7 +147,7 @@ function Panel(props) {
                 }}
               />
             </Col>
-            <Col sm={4}>
+            <Col xs={4}>
               <Button disabled={!LoadContent}>Load</Button>
             </Col>
           </Row>
@@ -163,6 +164,7 @@ const mapStateToProps = (store) => ({
   //判斷轉跳位置:
   HistoryLength: store.boardPosition.limit,
   CurrentIndex: store.boardPosition.index,
+  //判斷轉跳位置:
   canUndo: store.boardPosition.past.length > 0,
   canRedo: store.boardPosition.future.length > 0,
 });

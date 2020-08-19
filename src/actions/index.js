@@ -4,7 +4,7 @@ export const INIT_POSITION = "INIT_POSITION";
 export const ADD_POSITION = "ADD_POSITION";
 export const DEL_POSITION = "DEL_POSITION";
 export const LOAD_HISTORY_FILE = "LOAD_HISTORY_FILE";
-
+//VSCode Emoji: WIN + .
 //redux-undo:
 export const UNDO_POSITION = "UNDO_POSITION";
 export const REDO_POSITION = "REDO_POSITION";
@@ -66,9 +66,10 @@ export function clearPositionHistory() {
   };
 }
 //跳至特定手數:
-export function jumpPosition(payload: Number) {
+export function jumpPosition(index: Number) {
   return {
     type: JUMP_TO_POSITION,
-    payload,
+    //redux-undo: 固定名稱index
+    index,
   };
 }
