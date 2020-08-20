@@ -33,6 +33,8 @@ function Panel(props) {
     setFileName,
   } = props;
   const [FileLabel, setFileLabel] = useState("Select file:");
+  const [SizeLabel, setSizeLabel] = useState("Board size:");
+  const [writeName, setWriteName] = useState("");
   const [jumpOptions, setJumpOptions] = useState([]);
   useEffect(() => {
     let optArray = [];
@@ -41,6 +43,15 @@ function Panel(props) {
     }
     setJumpOptions(optArray);
   }, [props.HistoryLength]);
+  function doInit(boardSize: Number = props.boardSize) {
+    //設定棋盤尺寸&重置:
+    initBoardPosition(parseInt(boardSize));
+    clearPositionHistory();
+    changePlayerTurn(1);
+    setFileLabel("Select file:");
+    // setSizeLabel("Board size:");
+    setWriteName("");
+  }
   return (
     <>
       <Form className="board-panel">
@@ -49,23 +60,26 @@ function Panel(props) {
             <Col xs={8}>
               <Form.Control
                 as="select"
-                defaultValue={`Board Size:`}
+                value={SizeLabel}
                 onChange={(event) => {
-                  //設定棋盤尺寸&重置:
-                  initBoardPosition(parseInt(event.target.value));
                   setBoardSize(parseInt(event.target.value));
-                  clearPositionHistory();
-                  changePlayerTurn(1);
+                  doInit(event.target.value);
                 }}
               >
-                <option disabled>Board Size:</option>
+                <option value={"Board size:"} disabled>
+                  Board Size:
+                </option>
                 <option value={9}>9</option>
                 <option value={13}>13</option>
                 <option value={19}>19</option>
               </Form.Control>
             </Col>
             <Col xs={4}>
-              <Button variant="success" className="panel-btn">
+              <Button
+                variant="success"
+                className="panel-btn"
+                onClick={() => doInit()}
+              >
                 Reset
               </Button>
             </Col>
@@ -122,10 +136,12 @@ function Panel(props) {
             <Col xs={8}>
               <Form.Control
                 type="text"
-                placeholder="Enter filename:"
-                onChange={(e) => {
-                  setFileName(e.target.value);
-                }}
+                placeholder={`Enter filename:`}
+                value={writeName}
+                //暫存至state
+                onChange={(e) => setWriteName(e.target.value)}
+                //儲存至redux
+                onBlur={(e) => setFileName(e.target.value)}
               />
             </Col>
             <Col xs={4}>
@@ -135,6 +151,7 @@ function Panel(props) {
                   JSON.stringify(props.duelLog)
                 )}`}
                 download={`${props.fileName}.json`}
+                onClick={() => setWriteName("")}
               >
                 Save
               </Button>
@@ -151,21 +168,22 @@ function Panel(props) {
                 onChange={(e) => {
                   if (e.target.files.length) {
                     //檔名顯示:
-                    let labelString = e.target.files[0].name
-                      .toString()
-                      .slice(0, -4);
-                    labelString =
-                      labelString.length > 10
-                        ? labelString.slice(0, 10) + "..."
-                        : labelString;
+                    let labelString = e.target.files[0].name.toString();
+                    if (labelString.slice(-5, labelString.length) === ".json") {
+                      labelString = labelString.slice(0, -5);
+                    }
+                    if (labelString.length > 10) {
+                      labelString = labelString.slice(0, 10) + "...";
+                    }
                     setFileLabel(`${labelString}`);
 
                     //TODO: validate file
                     const reader = new FileReader();
                     reader.readAsText(e.target.files[0]);
                     reader.addEventListener("load", () => {
-                      // clearPositionHistory(JSON.parse(reader.result));
-                      loadHistoryFile(JSON.parse(reader.result));
+                      let newStore = JSON.parse(reader.result);
+                      loadHistoryFile(newStore);
+                      setSizeLabel(newStore.boardSize);
                     });
                   }
                 }}
@@ -183,12 +201,11 @@ const mapStateToProps = (store) => ({
   fileName: store.fileName,
   boardSize: store.boardSize,
   playerTurn: store.playerTurn,
+  canUndo: store.boardPosition.past.length > 0,
+  canRedo: store.boardPosition.future.length > 0,
   //判斷轉跳位置:
   HistoryLength: store.boardPosition.limit,
   CurrentIndex: store.boardPosition.index,
-  //判斷轉跳位置:
-  canUndo: store.boardPosition.past.length > 0,
-  canRedo: store.boardPosition.future.length > 0,
 });
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
