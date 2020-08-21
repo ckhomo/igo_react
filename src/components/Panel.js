@@ -116,6 +116,7 @@ function Panel(props) {
             <Col xs={6}>
               <Form.Control
                 as="select"
+                custom
                 defaultValue="Jump to:"
                 onChange={(e) => {
                   let jumpWidth = parseInt(e.target.value - props.CurrentIndex);
@@ -189,6 +190,32 @@ function Panel(props) {
                 }}
               />
             </Col>
+          </Row>
+        </Form.Group>
+        <Form.Group controlId="user-config">
+          {/* WIP: checkbox style */}
+          <Row>
+            {/* <Col xs={6}>
+              <Form.Check
+                type="switch"
+                custom
+                id={"config-order"}
+                // className="custom-switch-adaptive"
+                className="custom-switch-md"
+                label="ORDER"
+              />
+            </Col>
+            <Col xs={6}>
+              <Form.Check
+                type="switch"
+                custom
+                id={"config-dark"}
+                // className="custom-switch-adaptive"
+                className="custom-switch-md"
+                label="DARK"
+              />
+            </Col> */}
+            {/* <Col xs={4}></Col> */}
           </Row>
         </Form.Group>
       </Form>

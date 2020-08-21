@@ -1,4 +1,5 @@
-//Calculate to check if EAT happens.
+/* Wait for Optimization... */
+//Check if EAT happens...
 export function handleEat(board: Object, position: Object) {
   //四周顏色相異的點:
   let aroundStatus = [];
@@ -99,7 +100,7 @@ export function handleEat(board: Object, position: Object) {
     return input.filter(Boolean);
   }
 }
-
+//Check if unit is forbidden...
 export function handleForbid(board: Object, position: Object) {
   //獲取落子處棋串:
   let groupList = generateGroup([position]);

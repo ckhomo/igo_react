@@ -19,25 +19,28 @@ function BoardUnit(props) {
   const [Forbid, setForbid] = useState(false);
   const [toDelete, setToDelete] = useState(null);
 
-  //檢查該格是否能被寫入&提子預判:
+  //檢查該"空格"是否能被寫入&提子預判:
   useEffect(() => {
-    let predictBoard = props.boardPosition;
-    let predictCoord = {
-      x: props.pos.x,
-      y: props.pos.y,
-      status: props.playerTurn,
-    };
-    predictBoard[props.pos.x][props.pos.y] = props.playerTurn;
-    let delArray = handleEat(predictBoard, predictCoord);
-    if (delArray.length > 0) {
-      setToDelete(delArray);
-      setForbid(false);
-    } else {
-      setToDelete(null);
-      setForbid(handleForbid(predictBoard, predictCoord));
+    if (props.status === 0) {
+      // console.log("LAGPOINT");
+      let predictBoard = props.boardPosition;
+      let predictCoord = {
+        x: props.pos.x,
+        y: props.pos.y,
+        status: props.playerTurn,
+      };
+      predictBoard[props.pos.x][props.pos.y] = props.playerTurn;
+      let delArray = handleEat(predictBoard, predictCoord);
+      if (delArray.length > 0) {
+        setToDelete(delArray);
+        setForbid(false);
+      } else {
+        setToDelete(null);
+        setForbid(handleForbid(predictBoard, predictCoord));
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.boardPosition, props.playerTurn]);
+  }, [props.boardPosition, props.playerTurn, props.status]);
 
   function clearStyle(event) {
     event.target.style.cursor = "";

@@ -3,7 +3,7 @@ import { INIT_SIZE } from "../utils/config";
 // import { handleEat /*, handleForbid*/ } from "../utils";
 
 //Creat initial board.
-const boardInitStatus = (size = INIT_SIZE) => {
+const BOARD_INIT_STAT = (size = INIT_SIZE) => {
   let status_col = [];
   let status = {};
   for (var i = 0; i < size; i++) {
@@ -16,12 +16,12 @@ const boardInitStatus = (size = INIT_SIZE) => {
 };
 
 export default function boardPosition(
-  state: String = boardInitStatus(),
+  state: String = BOARD_INIT_STAT(),
   action
 ) {
   switch (action.type) {
     case INIT_POSITION:
-      return boardInitStatus(action.payload);
+      return BOARD_INIT_STAT(action.payload);
     case ADD_POSITION:
       let stateADD = JSON.parse(state);
       stateADD[action.payload.x][action.payload.y] = action.payload.status;

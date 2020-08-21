@@ -3,6 +3,7 @@ import boardSize from "./boardSize";
 import boardPosition from "./boardPosition";
 import playerTurn from "./playerTurn";
 import fileName from "./fileName";
+import userConfig from "./userConfig";
 
 //redux-undo:
 import undoable, { includeAction } from "redux-undo";
@@ -19,6 +20,7 @@ const middleReducer = combineReducers({
   fileName: fileName,
   boardSize: boardSize,
   playerTurn: playerTurn,
+  userConfig: userConfig,
   boardPosition: undoable(boardPosition, {
     // debug: true,
     filter: includeAction(ADD_POSITION),
@@ -35,6 +37,8 @@ const middleReducer = combineReducers({
 const rootReducer = (state: Object, action) => {
   switch (action.type) {
     case LOAD_HISTORY_FILE:
+      //不被覆蓋之redux:
+      action.payload.userConfig = state.userConfig;
       state = action.payload;
       break;
     default:

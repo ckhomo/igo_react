@@ -5,6 +5,10 @@ export const ADD_POSITION = "ADD_POSITION";
 export const DEL_POSITION = "DEL_POSITION";
 export const LOAD_HISTORY_FILE = "LOAD_HISTORY_FILE";
 export const SET_FILE_NAME = "SET_FILE_NAME";
+//user Preference:(不應存入記錄檔)
+export const TOGGLE_ORDER = "TOGGLE_ORDER";
+export const TOGGLE_DARK = "TOGGLE_DARK";
+export const SWITCH_LANG = "SWITCH_LANG";
 //VSCode Emoji: WIN + .
 //redux-undo:
 export const UNDO_POSITION = "UNDO_POSITION";
